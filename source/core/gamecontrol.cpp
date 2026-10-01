@@ -157,6 +157,9 @@ void I_SetWindowTitle(const char* caption);
 void S_ParseSndInfo();
 void I_DetectOS(void);
 void LoadScripts();
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 void MainLoop();
 void SetConsoleNotifyBuffer();
 bool PreBindTexture(FRenderState* state, FGameTexture*& tex, EUpscaleFlags& flags, int& scaleflags, int& clampmode, int& translation, int& overrideshader);
@@ -1200,6 +1203,9 @@ int RunGame()
 	UpdateGenericUI(ui_generic);
 	PClassActor::StaticInit();
 	gi->FinalizeSetup();
+#ifdef OASIS_STAR_API
+	Raze_STAR_Init();
+#endif
 	MainLoop();
 	return 0;
 }

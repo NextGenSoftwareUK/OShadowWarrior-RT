@@ -1483,10 +1483,29 @@ set( GAME_SOURCES
 
 )
 
+if(OASIS_STAR_API)
+	list(APPEND GAME_SOURCES core/raze_ogengine_integration.cpp core/oasis/ogengine_sync.c)
+endif()
+
 set( GAME_NONPCH_SOURCES ${GAME_SOURCES} )
 list( REMOVE_ITEM GAME_NONPCH_SOURCES ${PCH_SOURCES} )
 
 add_executable( ${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${GAME_SOURCES} )
+
+if(OASIS_STAR_API)
+	target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/core/oasis)
+	if(OGENGINE_LIB_DIR)
+		target_link_directories(${PROJECT_NAME} PRIVATE ${OGENGINE_LIB_DIR})
+	elseif(OGENGINE_DIR)
+		target_link_directories(${PROJECT_NAME} PRIVATE ${OGENGINE_DIR}/build/Release ${OGENGINE_DIR}/build/Debug ${OGENGINE_DIR}/build)
+	endif()
+	if(WIN32)
+		target_link_libraries(${PROJECT_NAME} ogengine winhttp)
+	else()
+		target_link_libraries(${PROJECT_NAME} ogengine)
+	endif()
+	set_source_files_properties(core/raze_ogengine_integration.cpp core/oasis/ogengine_sync.c PROPERTIES SKIP_PRECOMPILE_HEADERS TRUE)
+endif()
 
 if (HAVE_NRI)
 	add_compile_definitions(

@@ -24,6 +24,9 @@ Prepared for public release: 03/28/2005 - Charlie Wiederhold, 3D Realms
 */
 //-------------------------------------------------------------------------
 #include "ns.h"
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 #include "build.h"
 
 #include "names2.h"
@@ -4788,6 +4791,9 @@ void UpdateSinglePlayKills(DSWActor* actor)
         case SKULL_R0:
         case BETTY_R0:
             Level.addKill(-1);
+#ifdef OASIS_STAR_API
+            Raze_STAR_OnKill(actor);
+#endif
             break;
         }
     }

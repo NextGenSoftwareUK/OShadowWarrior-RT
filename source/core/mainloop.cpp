@@ -61,6 +61,9 @@
 
 
 #include <chrono>
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 #include <thread>
 #include "c_cvars.h"
 #include "i_time.h"
@@ -1713,6 +1716,9 @@ void MainLoop ()
 
 			const double tryRunStartMs = I_msTimeF();
 			TryRunTics (); // will run at least one tic
+#ifdef OASIS_STAR_API
+			Raze_STAR_Tick();
+#endif
 			const double tryRunMs = I_msTimeF() - tryRunStartMs;
 			// Update display, next frame, with current state.
 			const double startTicStartMs = I_msTimeF();

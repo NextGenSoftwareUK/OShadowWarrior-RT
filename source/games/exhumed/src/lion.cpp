@@ -16,6 +16,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 //-------------------------------------------------------------------------
 #include "ns.h"
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 #include "aistuff.h"
 #include "engine.h"
 #include "exhumed.h"
@@ -128,6 +131,9 @@ void AILion::Damage(RunListEvent* ev)
             pActor->nHealth = 0;
 
             Level.addKill(-1);
+#ifdef OASIS_STAR_API
+            Raze_STAR_OnKillName("Lion");
+#endif
 
             if (nAction < 10)
             {

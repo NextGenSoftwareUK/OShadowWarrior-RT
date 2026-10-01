@@ -16,6 +16,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 //-------------------------------------------------------------------------
 #include "ns.h"
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 #include "engine.h"
 #include "aistuff.h"
 #include "sequence.h"
@@ -179,6 +182,9 @@ void AILavaDude::Damage(RunListEvent* ev)
         pActor->nFrame = 0;
 
         Level.addKill(-1);
+#ifdef OASIS_STAR_API
+        Raze_STAR_OnKillName("LavaDude");
+#endif
 
         pActor->spr.cstat &= ~CSTAT_SPRITE_BLOCK_ALL;
     }

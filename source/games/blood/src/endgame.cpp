@@ -16,6 +16,9 @@
  */
 
 #include "ns.h"	// Must come before everything else!
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 
 #include "build.h"
 #include "v_draw.h"
@@ -72,6 +75,14 @@ void AddKill(DBloodActor* killer, DBloodActor* killed)
 	{
 		int playernum = killer->IsPlayerActor() ? killer->GetType() - kDudePlayer1 : -1;
 		Level.addKill(playernum, 1);
+#ifdef OASIS_STAR_API
+		if (playernum >= 0)
+		{
+			char dudeName[32];
+			snprintf(dudeName, sizeof(dudeName), "BloodDude%d", (int)killed->GetType());
+			Raze_STAR_OnKillName(dudeName);
+		}
+#endif
 	}
 }
 

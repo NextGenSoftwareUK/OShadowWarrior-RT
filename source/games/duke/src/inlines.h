@@ -1,6 +1,9 @@
 #pragma once
 
 #include "gamehud.h"
+#ifdef OASIS_STAR_API
+#include "raze_ogengine_integration.h"
+#endif
 #include "global.h"
 #include "models/modeldata.h"
 #include "texinfo.h"
@@ -269,6 +272,9 @@ inline void addkill(DDukeActor* actor)
 	if ((actor->flags1 & SFLAG_KILLCOUNT) && (actor->spr.cstat2 & CSTAT2_SPRITE_COUNTKILL))
 	{
 		Level.addKill(myconnectindex);
+#ifdef OASIS_STAR_API
+		Raze_STAR_OnKill(actor);
+#endif
 		actor->spr.cstat2 &= ~CSTAT2_SPRITE_COUNTKILL;
 	}
 }

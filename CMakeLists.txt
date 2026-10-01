@@ -34,6 +34,14 @@ endif()
 
 project(Raze)
 
+# OASIS STAR API integration (OShadowWarrior/OBlood/OExhumed/ODuke3D). Off by default.
+option(OASIS_STAR_API "Enable OASIS STAR API integration" OFF)
+if(OASIS_STAR_API)
+	add_compile_definitions(OASIS_STAR_API)
+	set(OGENGINE_DIR "" CACHE PATH "Path containing ogengine.h (e.g. OASIS Omniverse/OGEngineClient)")
+	set(OGENGINE_LIB_DIR "" CACHE PATH "Path containing ogengine.lib/dll if pre-built; empty = OGENGINE_DIR/build/Release")
+endif()
+
 if (WIN32 AND VCPKG_TOOLCHAIN)
 	option(LIBVPX_VCPKG "Use libvpx from vcpkg" OFF)
 endif()
